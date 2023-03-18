@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19fa2bb2967d2334980eabe854abd633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playFabTitle: 9CA7C
+  _playFabTitle: A2891
 --- !u!4 &1308262241
 Transform:
   m_ObjectHideFlags: 0
