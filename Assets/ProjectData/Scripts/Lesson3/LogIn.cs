@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class LogIn : MonoBehaviourPunCallbacks
 {
+    private const string AuthGuidKey = "auth_guid-key";
+
     [SerializeField] private Button _logInButton;
     [SerializeField] private Button _connectToPhotonButton;
     [SerializeField] private TextMeshProUGUI _statusLogin;
@@ -23,13 +25,20 @@ public class LogIn : MonoBehaviourPunCallbacks
 
     private void LogInToPlayFab()
     {
+        var needCreation = !PlayerPrefs.HasKey(AuthGuidKey);
+        var id = PlayerPrefs.GetString(AuthGuidKey, System.Guid.NewGuid().ToString());
         var request = new LoginWithCustomIDRequest()
         {
-            CustomId = "TestUser",
-            CreateAccount = true,
+            CustomId = id,
+            CreateAccount = needCreation,
         };
 
-        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
+        PlayFabClientAPI.LoginWithCustomID(request, 
+            result =>
+            {
+                PlayerPrefs.SetString(AuthGuidKey, id);
+                OnLoginSuccess(result); 
+            }, OnLoginFailure);
         _logInButton.interactable = false;
     }
 
