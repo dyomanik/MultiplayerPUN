@@ -1,0 +1,249 @@
+{
+  "CatalogVersion": "main",
+  "Catalog": [
+    {
+      "ItemId": "apple",
+      "ItemClass": "fruits",
+      "CatalogVersion": "main",
+      "DisplayName": "Apple",
+      "Description": "Delicious apple",
+      "VirtualCurrencyPrices": {
+        "RM": 15
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": true,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "apricot",
+      "ItemClass": "fruits",
+      "CatalogVersion": "main",
+      "DisplayName": "Appricot",
+      "Description": "Tasty apricot",
+      "VirtualCurrencyPrices": {
+        "RM": 30
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": true,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "watermelon",
+      "ItemClass": "fruits",
+      "CatalogVersion": "main",
+      "DisplayName": "Watermelon",
+      "Description": "Really big watermelon",
+      "VirtualCurrencyPrices": {
+        "RM": 20
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": true,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "fruit_box",
+      "ItemClass": "boxes",
+      "CatalogVersion": "main",
+      "DisplayName": "Fruit box",
+      "Description": null,
+      "VirtualCurrencyPrices": {},
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": {
+        "BundledItems": [
+          "apple",
+          "apricot",
+          "watermelon"
+        ],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": null
+      },
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "key_safe",
+      "ItemClass": "keys",
+      "CatalogVersion": "main",
+      "DisplayName": "Key for safe",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "RM": 100
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": true,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "safe_fruit",
+      "ItemClass": "safe",
+      "CatalogVersion": "main",
+      "DisplayName": "Safe of fruit",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "RM": 150
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": {
+        "KeyItemId": "key_safe",
+        "ItemContents": [
+          "apple",
+          "apple",
+          "apple",
+          "apricot",
+          "apricot",
+          "watermelon"
+        ],
+        "ResultTableContents": [],
+        "VirtualCurrencyContents": null
+      },
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": true,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "shield_level_5",
+      "ItemClass": "shields",
+      "CatalogVersion": "main",
+      "DisplayName": "Level 5 Shield",
+      "Description": "It’s my first catalog item ever. SOS.",
+      "VirtualCurrencyPrices": {
+        "GD": 100
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    }
+  ],
+  "DropTables": [
+    {
+      "TableId": "level_1",
+      "Nodes": [
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "fruit_box",
+          "Weight": 3
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "safe_fruit",
+          "Weight": 1
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "key_safe",
+          "Weight": 1
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "watermelon",
+          "Weight": 4
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "apricot",
+          "Weight": 4
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "apple",
+          "Weight": 4
+        }
+      ]
+    }
+  ]
+}
