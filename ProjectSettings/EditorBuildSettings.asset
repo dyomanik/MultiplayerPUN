@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lesson4/PlayFabLogin.unity
     guid: a833b943774b1e4439c827e24a673e22
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lesson4/Lobby.unity
     guid: 3b3b87f454ee07e43af2f0bdbf1bf2cd
+  - enabled: 1
+    path: Assets/Scenes/Lesson6/Matchmaking.unity
+    guid: 1e848182fa3254442a6ca7f1047cd98a
   m_configObjects: {}
