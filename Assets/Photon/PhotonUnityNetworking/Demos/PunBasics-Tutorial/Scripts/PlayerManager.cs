@@ -8,6 +8,11 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Palmmedia.ReportGenerator.Core.Common;
+using PlayFab;
+using PlayFab.ClientModels;
+using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -29,6 +34,12 @@ namespace Photon.Pun.Demo.PunBasics
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
+        public float IdPhoton
+        {
+            get => photonView.ViewID;
+            set => _idPhoton = value;
+        }
+
         #endregion
 
         #region Private Fields
@@ -41,8 +52,12 @@ namespace Photon.Pun.Demo.PunBasics
         [SerializeField]
         private GameObject beams;
 
+        private float _idPhoton;
+
         //True, when the user is firing
         bool IsFiring;
+
+        private const string AuthGuidKey = "auth_guid-key";
 
         #endregion
 
@@ -104,9 +119,17 @@ namespace Photon.Pun.Demo.PunBasics
                 Debug.LogWarning("<Color=Red><b>Missing</b></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
 
+            if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
+            {
+                PlayFabSettings.staticSettings.TitleId = "A2891";
+            }
+
+
+            LogInToPlayFab();
+
             #if UNITY_5_4_OR_NEWER
             // Unity 5.4 has a new scene management. register a method to call CalledOnLevelWasLoaded.
-			UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
             #endif
         }
 
@@ -175,6 +198,12 @@ namespace Photon.Pun.Demo.PunBasics
             }
 
             this.Health -= 0.1f;
+
+            string playFabId = string.Empty;
+            PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
+                resultCallback => { playFabId = resultCallback.AccountInfo.PlayFabId;},
+                OnError);
+            SetUserData(playFabId);
         }
 
         /// <summary>
@@ -281,15 +310,93 @@ namespace Photon.Pun.Demo.PunBasics
                 // We own this player: send the others our data
                 stream.SendNext(this.IsFiring);
                 stream.SendNext(this.Health);
+                stream.SendNext(IdPhoton);
             }
             else
             {
                 // Network player, receive data
                 this.IsFiring = (bool)stream.ReceiveNext();
                 this.Health = (float)stream.ReceiveNext();
+                IdPhoton = (float)stream.ReceiveNext();
             }
         }
 
+        #endregion
+
+        #region Playfab Methods
+
+        private void SetUserData(string playFabId)
+        {
+            PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
+            {
+                Data = new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Health", Health.ToString() }
+                }
+            }, 
+            result =>
+            {
+                Debug.Log("Successfully updated user data");
+                GetUserData(playFabId, "Health");
+            },
+            OnError);
+        }
+
+        private void GetUserData(string playFabId, string keyData)
+        {
+            PlayFabClientAPI.GetUserData(new GetUserDataRequest
+            {
+                PlayFabId = playFabId,
+            },
+            result =>
+            {
+                if (result.Data.ContainsKey(keyData))
+                {
+                    Health = float.Parse(result.Data[keyData].Value);
+                    Debug.Log($"{keyData}: {result.Data[keyData].Value}");
+                }
+            },
+            OnError);
+        }
+
+        private void OnError(PlayFabError error)
+        {
+            var errorMessage = error.GenerateErrorReport();
+            Debug.LogError($"Something went wrong: {errorMessage}");
+        }
+        #endregion
+
+        #region PlayFab Methods
+        private void LogInToPlayFab()
+        {
+            var needCreation = !PlayerPrefs.HasKey(AuthGuidKey);
+            var id = PlayerPrefs.GetString(AuthGuidKey, System.Guid.NewGuid().ToString());
+            var request = new LoginWithCustomIDRequest()
+            {
+                CustomId = id,
+                CreateAccount = needCreation,
+            };
+
+            PlayFabClientAPI.LoginWithCustomID(request,
+                result =>
+                {
+                    PlayerPrefs.SetString(AuthGuidKey, id);
+                    OnLoginSuccess(result);
+                }, OnLoginFailure);
+        }
+
+        private void OnLoginSuccess(LoginResult result)
+        {
+            var resultMessage = result.Request.ToString();
+            Debug.Log(resultMessage);
+            SetUserData(result.PlayFabId);
+        }
+
+        private void OnLoginFailure(PlayFabError error)
+        {
+            var errorMessage = error.GenerateErrorReport();
+            Debug.LogError($"Something went wrong: {errorMessage}");
+        }
         #endregion
     }
 }
