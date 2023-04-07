@@ -8,6 +8,7 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +32,10 @@ namespace Photon.Pun.Demo.PunBasics
 	    [SerializeField]
 	    private Text playerNameText;
 
-	    [Tooltip("UI Slider to display Player's Health")]
+        [SerializeField]
+        private Text playerIdText;
+
+        [Tooltip("UI Slider to display Player's Health")]
 	    [SerializeField]
 	    private Slider playerHealthSlider;
 
@@ -79,6 +83,8 @@ namespace Photon.Pun.Demo.PunBasics
 			if (playerHealthSlider != null) {
 				playerHealthSlider.value = target.Health;
 			}
+
+			playerIdText.text = $"PhotonID{target.IdPhoton}";
 		}
 
 		/// <summary>
