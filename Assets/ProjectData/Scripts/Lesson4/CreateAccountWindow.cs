@@ -1,5 +1,6 @@
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,10 +37,29 @@ public sealed class CreateAccountWindow : AccountDataWindowBase
         {
             Debug.Log($"Successful registation: {_username}");
             EnterInGameScene();
+            GiveCharacterTokenToPlayer();
+            GiveCharacterTokenToPlayer();
         }, error =>
         {
             Debug.Log($"Registration failed: {error.ErrorMessage}");
         });
+    }
+
+    private void GiveCharacterTokenToPlayer()
+    {
+        PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest
+        {
+            ItemId = "character_token",
+            VirtualCurrency = "GD"
+        }, 
+        result => Debug.Log("Success give character_token"),
+        OnError);              
+    }
+
+    private void OnError(PlayFabError error)
+    {
+        var errorMessage = error.GenerateErrorReport();
+        Debug.LogError($"Something went wrong: {errorMessage}");
     }
 
     private void OnDestroy()
